@@ -33,20 +33,26 @@ class AuthorController extends Controller
      *     tags={"Authors"},
      *     summary="Lista todos os autores",
      *     description="Retorna uma coleção paginada de autores",
+     *
      *     @OA\Parameter(
      *       name="nome",
      *       in="query",
      *       required=true,
+     *
      *       @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Lista de autores",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(
      *                 type="object",
      *                 properties={
+     *
      *                     @OA\Property(property="cod_au", type="integer", description="The ID of the branch", example=1),
      *                     @OA\Property(property="nome", type="string", description="The name of the branch", example="Main Branch"),
      *                     @OA\Property(property="created_at", type="string", description="The creation timestamp", example="01/01/2025 12:00:00"),
@@ -55,6 +61,7 @@ class AuthorController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Erro interno do servidor"
@@ -81,25 +88,32 @@ class AuthorController extends Controller
      *     tags={"Authors"},
      *     summary="Cria um novo autor",
      *     description="Cria um autor a partir dos dados fornecidos",
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"nome"},
+     *
      *             @OA\Property(property="nome", type="string", example="José da Silva")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Autor criado com sucesso",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="cod_au", type="integer", example=123),
      *             @OA\Property(property="nome", type="string", example="José da Silva"),
      *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-02T12:34:56Z"),
      *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-02T12:34:56Z")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Validação falhou"
@@ -126,24 +140,30 @@ class AuthorController extends Controller
      *     path="/api/authors/{id}",
      *     tags={"Authors"},
      *     summary="Retorna um autor pelo ID",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID do autor",
      *         required=true,
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Detalhes do autor",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="cod_au", type="integer", example=123),
      *             @OA\Property(property="nome", type="string", example="José da Silva"),
      *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-02T12:34:56Z"),
      *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-02T12:34:56Z")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Autor não encontrado"
@@ -169,21 +189,27 @@ class AuthorController extends Controller
      *     path="/api/authors/{id}",
      *     tags={"Authors"},
      *     summary="Atualiza um autor existente",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID do autor a ser atualizado",
      *         required=true,
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
      *             required={"nome"},
+     *
      *             @OA\Property(property="nome", type="string", example="José da Silva")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=204,
      *         description="Autor atualizado com sucesso, sem conteúdo retornado"
@@ -218,13 +244,16 @@ class AuthorController extends Controller
      *     path="/api/authors/{id}",
      *     tags={"Authors"},
      *     summary="Deleta um autor pelo ID",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID do autor a ser deletado",
      *         required=true,
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=204,
      *         description="Autor deletado com sucesso"

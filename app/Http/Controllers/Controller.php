@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\OpenApi(
+ *
  *     @OA\Info(
  *         title="Teste API",
  *         version="1.0.0",
@@ -19,12 +20,11 @@ use Illuminate\Routing\Controller as BaseController;
  *      name="Authors",
  *      description=""
  * )
- * 
  * @OA\Tag(
  *      name="Subjects",
  *      description=""
  * )
-*/
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
