@@ -9,7 +9,7 @@
  - `docker-compose exec app php artisan migrate`\
  - `docker-compose exec app php artisan db:seed`\
  - `docker-compose exec app php artisan test`\
- - Then Access: server_domain_or_IP:8800
+ - `docker-compose exec app php artisan l5-swagger:generate`\
   
 **Without Docker**\
  - `cp .env.example .env`\
@@ -19,5 +19,12 @@
  - `php artisan db:seed`\
  - `php artisan serve`\
  - `php artisan test`\
- - Then Access: server_domain_or_IP:8800
+ - `php artisan l5-swagger:generate`\
+
+✅ Acesso:\
+Rodar a API:\
+➡️ http://server_domain_or_IP:8800\
+
+Visualizar a documentação Swagger:\
+➡️ http://server_domain_or_IP:8800/api/documentation\
 
