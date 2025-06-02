@@ -1,0 +1,524 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Teste API",
+        "description": "Teste LIVRO",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Lista todos os autores",
+                "description": "Retorna uma coleção paginada de autores",
+                "operationId": "0c71439e213e1b284fc37995d74bca2b",
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de autores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "cod_au": {
+                                                "description": "The ID of the branch",
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nome": {
+                                                "description": "The name of the branch",
+                                                "type": "string",
+                                                "example": "Main Branch"
+                                            },
+                                            "created_at": {
+                                                "description": "The creation timestamp",
+                                                "type": "string",
+                                                "example": "01/01/2025 12:00:00"
+                                            },
+                                            "updated_at": {
+                                                "description": "The last updated timestamp",
+                                                "type": "string",
+                                                "example": "01/02/2025 15:30:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Cria um novo autor",
+                "description": "Cria um autor a partir dos dados fornecidos",
+                "operationId": "291d8539d3b5490d46fe9f2ebd84c64c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "José da Silva"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Autor criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cod_au": {
+                                            "type": "integer",
+                                            "example": 123
+                                        },
+                                        "nome": {
+                                            "type": "string",
+                                            "example": "José da Silva"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            }
+        },
+        "/api/authors/{id}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Retorna um autor pelo ID",
+                "operationId": "c14c739d68f46a33acfd0694a12c27dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do autor",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do autor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cod_au": {
+                                            "type": "integer",
+                                            "example": 123
+                                        },
+                                        "nome": {
+                                            "type": "string",
+                                            "example": "José da Silva"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Autor não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Atualiza um autor existente",
+                "operationId": "2a9f154a4061c0d3257520aba98221a5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do autor a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "José da Silva"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Autor atualizado com sucesso, sem conteúdo retornado"
+                    },
+                    "422": {
+                        "description": "Falha na validação"
+                    },
+                    "404": {
+                        "description": "Autor não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Deleta um autor pelo ID",
+                "operationId": "c04021713290d77b82e912ec58f94c36",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do autor a ser deletado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Autor deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Autor não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/subjects": {
+            "get": {
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Lista todos os assuntos",
+                "description": "Retorna uma coleção paginada de assuntos",
+                "operationId": "c855f23389ed099cf68e0ec8b726d707",
+                "parameters": [
+                    {
+                        "name": "descricao",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de assuntos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "cod_as": {
+                                                "description": "The ID of the branch",
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "descricao": {
+                                                "description": "The name of the branch",
+                                                "type": "string",
+                                                "example": "Main Branch"
+                                            },
+                                            "created_at": {
+                                                "description": "The creation timestamp",
+                                                "type": "string",
+                                                "example": "01/01/2025 12:00:00"
+                                            },
+                                            "updated_at": {
+                                                "description": "The last updated timestamp",
+                                                "type": "string",
+                                                "example": "01/02/2025 15:30:00"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        },
+        "/api/subjcts": {
+            "post": {
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Cria um novo assunto",
+                "description": "Cria um assunto a partir dos dados fornecidos",
+                "operationId": "15b3448169869ac697adaa79a53317c5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "descricao"
+                                ],
+                                "properties": {
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "José da Silva"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Assunto criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cod_as": {
+                                            "type": "integer",
+                                            "example": 123
+                                        },
+                                        "descricao": {
+                                            "type": "string",
+                                            "example": "José da Silva"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validação falhou"
+                    }
+                }
+            }
+        },
+        "/api/subjects/{id}": {
+            "get": {
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Retorna um assunto pelo ID",
+                "operationId": "051f52e9b82cde48605830b5099e1870",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do assunto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do assunto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cod_as": {
+                                            "type": "integer",
+                                            "example": 123
+                                        },
+                                        "descricao": {
+                                            "type": "string",
+                                            "example": "José da Silva"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-06-02T12:34:56Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Assunto não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Atualiza um assunto existente",
+                "operationId": "962badd11b34db532cfba057979e03dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do assunto a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "descricao"
+                                ],
+                                "properties": {
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "José da Silva"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Assunto atualizado com sucesso, sem conteúdo retornado"
+                    },
+                    "422": {
+                        "description": "Falha na validação"
+                    },
+                    "404": {
+                        "description": "Assunto não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Subjects"
+                ],
+                "summary": "Deleta um assunto pelo ID",
+                "operationId": "66808726432e96fed2fcea3bca0b74a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do assunto a ser deletado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Assunto deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Assunto não encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authors",
+            "description": ""
+        },
+        {
+            "name": "Subjects",
+            "description": "API Endpoints para gerenciamento de Assuntos"
+        }
+    ]
+}
