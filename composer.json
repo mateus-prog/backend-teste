@@ -48,6 +48,18 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "see_linter_errors": [
+            "@php ./vendor/bin/pint --test -v"
+        ],
+        "apply_linter": [
+            "@php ./vendor/bin/pint -v"
+        ],
+        "phpstan": [
+            "@php ./vendor/bin/phpstan analyse --memory-limit=1G"
+        ],
+        "swagger": [
+            "@php artisan l5-swagger:generate"
         ]
     },
     "extra": {
