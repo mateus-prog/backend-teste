@@ -34,14 +34,6 @@ class AuthorController extends Controller
      *     summary="Lista todos os autores",
      *     description="Retorna uma coleção paginada de autores",
      *
-     *     @OA\Parameter(
-     *       name="nome",
-     *       in="query",
-     *       required=true,
-     *
-     *       @OA\Schema(type="string")
-     *     ),
-     *
      *     @OA\Response(
      *         response=200,
      *         description="Lista de autores",
@@ -53,10 +45,10 @@ class AuthorController extends Controller
      *                 type="object",
      *                 properties={
      *
-     *                     @OA\Property(property="cod_au", type="integer", description="The ID of the branch", example=1),
-     *                     @OA\Property(property="nome", type="string", description="The name of the branch", example="Main Branch"),
-     *                     @OA\Property(property="created_at", type="string", description="The creation timestamp", example="01/01/2025 12:00:00"),
-     *                     @OA\Property(property="updated_at", type="string", description="The last updated timestamp", example="01/02/2025 15:30:00")
+     *                     @OA\Property(property="cod_au", type="integer", description="Código do Autor", example=1),
+     *                     @OA\Property(property="nome", type="string", description="Nome do Autor", example="Main Branch"),
+     *                     @OA\Property(property="created_at", type="string", description="Data e hora de criação do registro", example="01/01/2025 12:00:00"),
+     *                     @OA\Property(property="updated_at", type="string", description="Data e hora de atualização do registro", example="01/02/2025 15:30:00")
      *                 }
      *             )
      *         )
@@ -137,14 +129,14 @@ class AuthorController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/authors/{id}",
+     *     path="/api/authors/{cod_au}",
      *     tags={"Authors"},
-     *     summary="Retorna um autor pelo ID",
+     *     summary="Retorna um autor pelo Codido do Autor",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_au",
      *         in="path",
-     *         description="ID do autor",
+     *         description="Código do autor",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -170,10 +162,10 @@ class AuthorController extends Controller
      *     )
      * )
      */
-    public function show(string $id): JsonResponse
+    public function show(string $cod_au): JsonResponse
     {
         try {
-            $author = $this->authorService->findById($id);
+            $author = $this->authorService->findById($cod_au);
 
             return response()->json(new AuthorResource($author), Response::HTTP_OK);
         } catch (Exception $e) {
@@ -186,14 +178,14 @@ class AuthorController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/authors/{id}",
+     *     path="/api/authors/{cod_au}",
      *     tags={"Authors"},
      *     summary="Atualiza um autor existente",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_au",
      *         in="path",
-     *         description="ID do autor a ser atualizado",
+     *         description="Código do autor a ser atualizado",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -224,11 +216,11 @@ class AuthorController extends Controller
      *     )
      * )
      */
-    public function update(AuthorRequest $request, string $id): JsonResponse|Response
+    public function update(AuthorRequest $request, string $cod_au): JsonResponse|Response
     {
         try {
             $validated = $request->safe()->only(['nome']);
-            $this->authorService->update($id, $validated);
+            $this->authorService->update($cod_au, $validated);
 
             return response()->noContent();
         } catch (Exception $e) {
@@ -241,14 +233,14 @@ class AuthorController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/authors/{id}",
+     *     path="/api/authors/{cod_au}",
      *     tags={"Authors"},
-     *     summary="Deleta um autor pelo ID",
+     *     summary="Deleta um autor pelo código do autor",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_au",
      *         in="path",
-     *         description="ID do autor a ser deletado",
+     *         description="Código do autor a ser deletado",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -264,10 +256,10 @@ class AuthorController extends Controller
      *     )
      * )
      */
-    public function destroy(string $id): JsonResponse|Response
+    public function destroy(string $cod_au): JsonResponse|Response
     {
         try {
-            $this->authorService->destroy($id);
+            $this->authorService->destroy($cod_au);
 
             return response()->noContent();
         } catch (Exception $e) {

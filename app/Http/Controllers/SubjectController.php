@@ -34,14 +34,6 @@ class SubjectController extends Controller
      *     summary="Lista todos os assuntos",
      *     description="Retorna uma coleção paginada de assuntos",
      *
-     *     @OA\Parameter(
-     *       name="descricao",
-     *       in="query",
-     *       required=true,
-     *
-     *       @OA\Schema(type="string")
-     *     ),
-     *
      *     @OA\Response(
      *         response=200,
      *         description="Lista de assuntos",
@@ -53,10 +45,10 @@ class SubjectController extends Controller
      *                 type="object",
      *                 properties={
      *
-     *                     @OA\Property(property="cod_as", type="integer", description="The ID of the branch", example=1),
-     *                     @OA\Property(property="descricao", type="string", description="The name of the branch", example="Main Branch"),
-     *                     @OA\Property(property="created_at", type="string", description="The creation timestamp", example="01/01/2025 12:00:00"),
-     *                     @OA\Property(property="updated_at", type="string", description="The last updated timestamp", example="01/02/2025 15:30:00")
+     *                     @OA\Property(property="cod_as", type="integer", description="Código do Assunto", example=1),
+     *                     @OA\Property(property="descricao", type="string", description="Descrição", example="Terror"),
+     *                     @OA\Property(property="created_at", type="string", description="Data e hora de criação do registro", example="01/01/2025 12:00:00"),
+     *                     @OA\Property(property="updated_at", type="string", description="Data e hora de atualização do registro", example="01/02/2025 15:30:00")
      *                 }
      *             )
      *         )
@@ -84,7 +76,7 @@ class SubjectController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/subjcts",
+     *     path="/api/subjects",
      *     tags={"Subjects"},
      *     summary="Cria um novo assunto",
      *     description="Cria um assunto a partir dos dados fornecidos",
@@ -96,7 +88,7 @@ class SubjectController extends Controller
      *             type="object",
      *             required={"descricao"},
      *
-     *             @OA\Property(property="descricao", type="string", example="José da Silva")
+     *             @OA\Property(property="descricao", type="string", example="Terror")
      *         )
      *     ),
      *
@@ -108,7 +100,7 @@ class SubjectController extends Controller
      *             type="object",
      *
      *             @OA\Property(property="cod_as", type="integer", example=123),
-     *             @OA\Property(property="descricao", type="string", example="José da Silva"),
+     *             @OA\Property(property="descricao", type="string", example="Comédia"),
      *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-02T12:34:56Z"),
      *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-02T12:34:56Z")
      *         )
@@ -137,14 +129,14 @@ class SubjectController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/subjects/{id}",
+     *     path="/api/subjects/{cod_as}",
      *     tags={"Subjects"},
-     *     summary="Retorna um assunto pelo ID",
+     *     summary="Retorna um assunto pelo Código do Assunto",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_as",
      *         in="path",
-     *         description="ID do assunto",
+     *         description="Código do assunto",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -158,7 +150,7 @@ class SubjectController extends Controller
      *             type="object",
      *
      *             @OA\Property(property="cod_as", type="integer", example=123),
-     *             @OA\Property(property="descricao", type="string", example="José da Silva"),
+     *             @OA\Property(property="descricao", type="string", example="Ação"),
      *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-02T12:34:56Z"),
      *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-02T12:34:56Z")
      *         )
@@ -170,10 +162,10 @@ class SubjectController extends Controller
      *     )
      * )
      */
-    public function show(string $id): JsonResponse
+    public function show(string $cod_as): JsonResponse
     {
         try {
-            $subject = $this->subjectService->findById($id);
+            $subject = $this->subjectService->findById($cod_as);
 
             return response()->json(new SubjectResource($subject), Response::HTTP_OK);
         } catch (Exception $e) {
@@ -186,14 +178,14 @@ class SubjectController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/subjects/{id}",
+     *     path="/api/subjects/{cod_as}",
      *     tags={"Subjects"},
      *     summary="Atualiza um assunto existente",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_as",
      *         in="path",
-     *         description="ID do assunto a ser atualizado",
+     *         description="Código do assunto a ser atualizado",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -206,7 +198,7 @@ class SubjectController extends Controller
      *             type="object",
      *             required={"descricao"},
      *
-     *             @OA\Property(property="descricao", type="string", example="José da Silva")
+     *             @OA\Property(property="descricao", type="string", example="Ação")
      *         )
      *     ),
      *
@@ -224,11 +216,11 @@ class SubjectController extends Controller
      *     )
      * )
      */
-    public function update(SubjectRequest $request, string $id): JsonResponse|Response
+    public function update(SubjectRequest $request, string $cod_as): JsonResponse|Response
     {
         try {
             $validated = $request->safe()->only(['descricao']);
-            $this->subjectService->update($id, $validated);
+            $this->subjectService->update($cod_as, $validated);
 
             return response()->noContent();
         } catch (Exception $e) {
@@ -241,14 +233,14 @@ class SubjectController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/subjects/{id}",
+     *     path="/api/subjects/{cod_as}",
      *     tags={"Subjects"},
-     *     summary="Deleta um assunto pelo ID",
+     *     summary="Deleta um assunto pelo Código do Assunto",
      *
      *     @OA\Parameter(
-     *         name="id",
+     *         name="cod_as",
      *         in="path",
-     *         description="ID do assunto a ser deletado",
+     *         description="Código do assunto a ser deletado",
      *         required=true,
      *
      *         @OA\Schema(type="string")
@@ -264,10 +256,10 @@ class SubjectController extends Controller
      *     )
      * )
      */
-    public function destroy(string $id): JsonResponse|Response
+    public function destroy(string $cod_as): JsonResponse|Response
     {
         try {
-            $this->subjectService->destroy($id);
+            $this->subjectService->destroy($cod_as);
 
             return response()->noContent();
         } catch (Exception $e) {
