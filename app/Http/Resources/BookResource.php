@@ -24,11 +24,9 @@ class BookResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            // Relação com autores
-            'authors' => AuthorResource::collection($this->whenLoaded('authors'))->pluck('cod_au'),
-
-            // Relação com assuntos
-            'subjects' => SubjectResource::collection($this->whenLoaded('subjects'))->pluck('cod_as'),
+            
+            'cod_au' => $this->whenLoaded('authors', fn () => $this->authors->pluck('cod_au')),
+            'cod_as' => $this->whenLoaded('subjects', fn () => $this->subjects->pluck('cod_as')),
         ];
     }
 }

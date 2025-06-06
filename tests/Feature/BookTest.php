@@ -28,6 +28,9 @@ class BookTest extends TestCase
             'cod_as' => $subjects->pluck('cod_as')->toArray(),
         ]);
 
+        $response->assertStatus(201)
+            ->assertJsonFragment(['titulo' => 'Livro Teste']);
+
         $this->assertDatabaseHas('livros', ['titulo' => 'Livro Teste']);
     }
 
