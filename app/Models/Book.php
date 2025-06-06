@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Book extends BaseModel
 {
+    use HasFactory;
+
     protected $table = 'livros';
 
     protected $primaryKey = 'cod_l';
